@@ -1,12 +1,13 @@
 #!/usr/local/bin/ruby
 
 require 'tdlib-ruby'
+require './localconfig'
 
 TD.configure do |config|
   config.lib_path = '/usr/local/lib'
 
-  config.client.api_id = your_api_id
-  config.client.api_hash = 'your_api_hash'
+  config.client.api_id = API_ID
+  config.client.api_hash = API_HASH
 end
 
 TD::Api.set_log_verbosity_level(1)
