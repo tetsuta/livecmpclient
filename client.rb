@@ -1,4 +1,5 @@
 #!/usr/local/bin/ruby
+# coding: utf-8
 
 require 'tdlib-ruby'
 require './localconfig'
@@ -18,6 +19,10 @@ begin
   state = nil
 
   client.on(TD::Types::Update::AuthorizationState) do |update|
+    # puts "0000000000"
+    # p update.to_json
+    # puts "0000000000"
+
     state = case update.authorization_state
             when TD::Types::AuthorizationState::WaitPhoneNumber
               :wait_phone_number
@@ -50,6 +55,50 @@ begin
       client.check_authentication_password(password: password).wait
     when :ready
       client.get_me.then { |user| @me = user }.rescue { |err| puts "error: #{err}" }.wait
+
+      puts "11111111111111111111111111"
+      # bot_name = "situationtrack202001_bot"
+      # # puts bot_name
+      # # # ret = client.search_chats(query: bot_name, limit: 10)  # <-- need to wait to get value
+      # ret = client.search_chats(query: bot_name, limit: 10).value
+      # puts ret.class
+      # p ret
+
+      bot_name = "situationtrack202001_bot"
+      puts bot_name
+      chat = client.search_public_chat(username: bot_name).value
+      if chat.class == TD::Types::Chat
+        puts "yes"
+        puts chat.id
+      else
+        puts "no"
+      end
+      puts "rrrr"
+      puts chat.class
+      p chat
+
+      ### send message
+      # message_text = "/start"
+      # message_text = "おはよう"
+      # message = TD::Types::InputMessageContent::Text.new(text: TD::Types::FormattedText.new(text: message_text, entities: []),
+      #                                                    disable_web_page_preview: true,
+      #                                                    clear_draft: false)
+      # client.send_message(chat_id: chat.id,
+      #                     message_thread_id: nil,
+      #                     reply_to_message_id: nil,
+      #                     options: nil,
+      #                     reply_markup: nil,
+      #                     input_message_content: message).wait
+
+
+      ### recieve message
+      received_message = client.get_chat_message_by_date(chat_id: chat.id,
+                                                         date: Time.now.to_i).value
+      puts "nnnn"
+      p received_message
+      puts received_message.class
+      puts received_message.content.text.text
+
       break
     end
     sleep 0.1
@@ -59,4 +108,8 @@ ensure
   client.dispose
 end
 
+
+puts @me.class
+puts "---"
 p @me
+
