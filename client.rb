@@ -10,8 +10,11 @@ class Simple_TD
     configure(tdllib_path, api_id, api_hash)
     TD::Api.set_log_verbosity_level(1)
 
+    @waiting_time = 0.5
     @me = nil
     @chat = nil
+    @latest_sent_message_id = nil
+    @latest_get_message_id = nil
     @client = TD::Client.new
     connect_server()
   end
@@ -52,17 +55,63 @@ class Simple_TD
     else
       log_message("Not found #{bot_name}")
     end
+
+    set_latest_get_message_id()
   end
 
 
-  def get_message()
+
+  # just get latest message. the sender of message may be opponent or @me
+  def get_latest_message()
     received_message = @client.get_chat_message_by_date(chat_id: @chat.id,
                                                        date: Time.now.to_i).value
     if received_message == nil
       return nil
     else
+      @latest_get_message_id = received_message.id
       return received_message.content.text.text
     end
+  end
+
+
+  # for test
+  def get_message_history(from_message_id, offset, limit)
+    # get message of from_message_id and older messages
+    ret = @client.get_chat_history(chat_id: @chat.id,
+                     from_message_id: from_message_id,
+                     offset: offset,
+                     limit: limit,
+                     only_local: false).value
+    ret.messages.each{|m|
+      p m
+    }
+
+
+  end
+
+
+  def get_response_message()
+    response_message = nil
+    loop do
+      received_message = @client.get_chat_message_by_date(chat_id: @chat.id,
+                                                          date: Time.now.to_i).value
+      if received_message == nil
+        response_message = nil
+        break
+      elsif received_message.sender.user_id == @me.id
+        log_message("waiting for the response...")
+        sleep @waiting_time
+      elsif received_message.id == @latest_get_message_id
+        log_message("waiting for the response...")
+        sleep @waiting_time
+      else
+        @latest_get_message_id = received_message.id
+        response_message = received_message.content.text.text
+        break
+      end
+    end
+
+    return response_message
   end
 
 
@@ -70,12 +119,15 @@ class Simple_TD
     message = TD::Types::InputMessageContent::Text.new(text: TD::Types::FormattedText.new(text: message_text, entities: []),
                                                        disable_web_page_preview: true,
                                                        clear_draft: false)
-    @client.send_message(chat_id: @chat.id,
+    sent_message_promise = @client.send_message(chat_id: @chat.id,
                          message_thread_id: nil,
                          reply_to_message_id: nil,
                          options: nil,
                          reply_markup: nil,
                          input_message_content: message).wait
+
+    latest_sent_message = sent_message_promise.value
+    @latest_sent_message_id = latest_sent_message.id
   end
 
 
@@ -130,6 +182,16 @@ class Simple_TD
 
   end
 
+
+  def set_latest_get_message_id()
+    received_message = @client.get_chat_message_by_date(chat_id: @chat.id,
+                                                       date: Time.now.to_i).value
+    if received_message == nil
+      @latest_get_message_id = nil
+    else
+      @latest_get_message_id = received_message.id
+    end
+  end
 end
 
 
@@ -138,6 +200,7 @@ telegram = Simple_TD.new(TDLIB_PATH, API_ID, API_HASH)
 
 bot_name = "situationtrack202001_bot"
 telegram.select_chat(bot_name)
+
 
 if telegram.ready_to_talk?
   loop do
@@ -148,8 +211,7 @@ if telegram.ready_to_talk?
       break
     else
       telegram.send_message(input_message)
-      sleep 5
-      puts telegram.get_message()
+      puts telegram.get_response_message()
     end
   end
 end
