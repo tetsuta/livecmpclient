@@ -1,0 +1,2 @@
+* get_message() has to wait the opponent's utterance, otherwise it returns the own latest message.
+
