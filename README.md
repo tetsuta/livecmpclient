@@ -22,7 +22,10 @@ example
 ````
 
 
-dialogue_extraction.rb
+# evaluation server
+A web server that send updated utterances to web clients.
+
+
 
 # reference
 https://www.rubydoc.info/gems/tdlib-ruby/2.2.0/TD/ClientMethods#get_chat_message_by_date-instance_method
