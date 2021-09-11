@@ -1,3 +1,5 @@
-* web app
+* DONE build CL-base client
+* DONE download dialogue history,
+* put dialog history on a web page
 * evaluation interface
 

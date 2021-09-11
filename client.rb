@@ -65,24 +65,42 @@ class Simple_TD
       return nil
     else
       @latest_get_message_id = received_message.id
+      return received_message
+    end
+  end
+
+
+  # just get latest message. the sender of message may be opponent or @me
+  def get_latest_message_text()
+    received_message = @client.get_chat_message_by_date(chat_id: @chat.id,
+                                                       date: Time.now.to_i).value
+    if received_message == nil
+      return nil
+    else
+      @latest_get_message_id = received_message.id
       return received_message.content.text.text
     end
   end
 
 
-  # for test
-  def get_message_history(from_message_id, offset, limit)
-    # get message of from_message_id and older messages
-    ret = @client.get_chat_history(chat_id: @chat.id,
-                     from_message_id: from_message_id,
-                     offset: offset,
-                     limit: limit,
-                     only_local: false).value
-    ret.messages.each{|m|
-      p m
-    }
+  def get_recent_messages(number)
+    message_list = []
 
+    if number <= 0
+      return message_list
+    end
 
+    message = get_latest_message()
+    if message == nil
+      return []
+    else
+      message_list.push(message)
+      if number > 1
+        message_list += get_message_history(message.id, 0, number - 1)
+      end
+    end
+
+    return message_list
   end
 
 
@@ -180,13 +198,31 @@ class Simple_TD
 
 
   def set_latest_get_message_id()
-    received_message = @client.get_chat_message_by_date(chat_id: @chat.id,
-                                                       date: Time.now.to_i).value
+    received_message = get_latest_message()
     if received_message == nil
       @latest_get_message_id = nil
     else
       @latest_get_message_id = received_message.id
     end
   end
+
+
+  # This method doesn't work as written in spec.
+  # get messages sent before the message of from_message_id. The message specified with from_message_id is NOT returned.
+  # If from_message_id is 0, only the latest message is returned.
+  # offset must be 0 otherwise it returns nil.
+  def get_message_history(from_message_id, offset, limit)
+    ret = @client.get_chat_history(chat_id: @chat.id,
+                     from_message_id: from_message_id,
+                     offset: offset,
+                     limit: limit,
+                     only_local: false).value
+    if ret.class == TD::Types::Messages
+      return ret.messages
+    else
+      return []
+    end
+  end
+
 end
 

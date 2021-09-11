@@ -1,5 +1,5 @@
-# livecmpclient
-Telegram client for live competition
+# Description of livecmpclient
+Telegram client for live competition.
 This repository provides 1) client function for chat and 2) evaluation function for the competition.
 
 # client
@@ -12,6 +12,9 @@ This repository provides 1) client function for chat and 2) evaluation function 
 ./test_client.rb -b situationtrack202001_bot
 
 
+# dialogue extraction
+
+dialogue_extraction.rb
 
 # reference
 https://www.rubydoc.info/gems/tdlib-ruby/2.2.0/TD/ClientMethods#get_chat_message_by_date-instance_method
