@@ -9,10 +9,18 @@ This repository provides 1) client function for chat and 2) evaluation function 
 - If the script founds the bot, you can start conversation.
 - Send "quit" to terminate the conversation.
 
+example
+````
 ./test_client.rb -b situationtrack202001_bot
-
+````
 
 # dialogue extraction
+
+example
+````
+./dialogue_extraction.rb -b situationtrack202001_bot -n 5
+````
+
 
 dialogue_extraction.rb
 
