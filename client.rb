@@ -1,8 +1,6 @@
-#!/usr/local/bin/ruby
 # coding: utf-8
 
 require 'tdlib-ruby'
-require './localconfig'
 
 class Simple_TD
   def initialize(tdllib_path, api_id, api_hash, quiet = false)
@@ -52,13 +50,11 @@ class Simple_TD
     @chat = @client.search_public_chat(username: bot_name).value
     if @chat.class == TD::Types::Chat
       log_message("Found #{bot_name} / #{@chat.id}")
+      set_latest_get_message_id()
     else
       log_message("Not found #{bot_name}")
     end
-
-    set_latest_get_message_id()
   end
-
 
 
   # just get latest message. the sender of message may be opponent or @me
@@ -193,28 +189,4 @@ class Simple_TD
     end
   end
 end
-
-
-
-telegram = Simple_TD.new(TDLIB_PATH, API_ID, API_HASH)
-
-bot_name = "situationtrack202001_bot"
-telegram.select_chat(bot_name)
-
-
-if telegram.ready_to_talk?
-  loop do
-    print "> "
-    input_message = STDIN.gets.strip
-    case input_message
-    when /quit/
-      break
-    else
-      telegram.send_message(input_message)
-      puts telegram.get_response_message()
-    end
-  end
-end
-
-telegram.close()
 
