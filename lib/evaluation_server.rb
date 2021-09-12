@@ -59,7 +59,7 @@ when :debug then
   $logger.level = Logger::DEBUG
 end
 
-telegram_fetch = Telegram_Fetch.new(TDLIB_PATH, API_ID, API_HASH)
+telegram_fetch = Telegram_Fetch.new(TDLIB_PATH, API_ID, API_HASH, Dialogue_History_Cache_Time)
 telegram_fetch.select_chat(bot_name)
 
 options = {
@@ -92,7 +92,8 @@ s.mount_proc('/'){|request, response|
     input = userInput["input"]
 
     $logger.info("connection: :#{request.peeraddr.to_s}")
-    data["text"] << Time.now.to_s
+    dialogue_history = telegram_fetch.load_history()
+    data["text"] << dialogue_history.to_s
     response.body = JSON.generate(data)
 
   rescue Exception => e

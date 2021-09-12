@@ -1,8 +1,3 @@
-#!/usr/local/bin/ruby
-# coding: utf-8
-require_relative './config'
-
-
 # coding: utf-8
 require_relative './client'
 
@@ -98,7 +93,7 @@ class Telegram_Fetch
   def load_history()
     now = Time.now
     if @last_load_time == nil || (now - @last_load_time) > @cache_time
-      # puts "RELOAD!!!"
+      puts "td_fetch_server.rb: RELOAD!!!"
       if @telegram.ready_to_talk?
         td_message_list = @telegram.get_recent_messages(@number_of_message)
         @last_load_time = Time.now()
@@ -108,7 +103,7 @@ class Telegram_Fetch
         return nil
       end
     else
-      # puts "Cache!!!"
+      puts "td_fetch_server.rb: Cache!!!"
       # cache can work
     end
 
@@ -121,25 +116,4 @@ class Telegram_Fetch
   end
 end
 
-
-bot_name = "situationtrack202001_bot"
-telegram_fetch = Telegram_Fetch.new(TDLIB_PATH, API_ID, API_HASH, Dialogue_History_Cache_Time)
-telegram_fetch.select_chat(bot_name)
-
-puts "1st"
-history = telegram_fetch.load_history()
-puts history.to_s
-sleep 2
-
-puts "2 sec"
-history = telegram_fetch.load_history()
-puts history.to_s
-sleep 7
-
-puts "7 sec"
-history = telegram_fetch.load_history()
-puts history.to_s
-
-
-telegram_fetch.close()
 

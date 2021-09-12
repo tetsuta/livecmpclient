@@ -17,6 +17,7 @@ response = http.post(path, JSON.generate(data), header)
 puts "--------------------"
 p response
 puts "--"
-p response.body
+responed_data = JSON.parse(response.body)
+puts responed_data["text"]
 puts "--------------------"
 
