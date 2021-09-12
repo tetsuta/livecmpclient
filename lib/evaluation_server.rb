@@ -98,7 +98,7 @@ s.mount_proc('/'){|request, response|
     userInput = JSON.parse(request.body)
     input = userInput["input"]
 
-    $logger.info("connection: __#{sessionID}__:#{request.peeraddr.to_s}")
+    $logger.info("connection: :#{request.peeraddr.to_s}")
     data["text"] << Time.now.to_s
     response.body = JSON.generate(data)
 
