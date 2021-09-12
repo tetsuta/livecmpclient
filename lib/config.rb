@@ -16,5 +16,10 @@ HTTPAccessControl = "*"
 
 
 # in second
-Dialogue_History_Cache_Time = 5
+# Dialogue_History_Cache_Time = 5
+Dialogue_History_Cache_Time = 600
+
+# this is for development
+# to use stored file instead of fetching from server
+Dialogue_History_Stab_File = "./stab.db"
 

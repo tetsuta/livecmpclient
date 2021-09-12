@@ -59,7 +59,7 @@ when :debug then
   $logger.level = Logger::DEBUG
 end
 
-telegram_fetch = Telegram_Fetch.new(TDLIB_PATH, API_ID, API_HASH, Dialogue_History_Cache_Time)
+telegram_fetch = Telegram_Fetch.new(TDLIB_PATH, API_ID, API_HASH, Dialogue_History_Cache_Time, Dialogue_History_Stab_File)
 telegram_fetch.select_chat(bot_name)
 
 options = {
