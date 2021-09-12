@@ -25,6 +25,9 @@ example
 # evaluation server
 A web server that send updated utterances to web clients.
 
+./evaluation_server.rb -b bbb
+
+
 
 
 # reference

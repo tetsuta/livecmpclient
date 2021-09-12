@@ -18,6 +18,11 @@ class Simple_TD
   end
 
 
+  def my_user_id()
+    return @me.id
+  end
+
+
   def close()
     @client.dispose
   end

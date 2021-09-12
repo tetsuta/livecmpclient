@@ -7,14 +7,12 @@ require 'securerandom'
 require 'getoptlong'
 require 'logger'
 require 'net/protocol'
-require 'pp'
 
 require_relative './config'
-require_relative './client'
+require_relative './td_fetch_server'
 
 # -------------------------------------------------- #
 opts = GetoptLong.new( [ "--bot_name", "-b", GetoptLong::REQUIRED_ARGUMENT ],
-                       [ "--number", "-n", GetoptLong::REQUIRED_ARGUMENT ],
                        [ "--help", "-h", GetoptLong::NO_ARGUMENT ] )
 
 def printHelp(message)
@@ -26,27 +24,23 @@ USAGE_MESSAGE = "
 Extract recent messages
 
 Usage:
- ./evaluation_server.rb [-h] -b bot_name_bot -n 5
+ ./evaluation_server.rb [-h] -b bot_name_bot
 
 -h: show help messsage
 -b: bot_name
--n: number of messages
 "
 
 bot_name = nil
-number_of_message = nil
 opts.each{|opt, arg|
   case opt
   when "--help"
     printHelp(USAGE_MESSAGE)
   when "--bot_name"
     bot_name = arg
-  when "--number"
-    number_of_message = arg.to_i
   end
 }
 
-if bot_name == nil || number_of_message == nil
+if bot_name == nil
   printHelp(USAGE_MESSAGE)
 end
 
@@ -65,16 +59,15 @@ when :debug then
   $logger.level = Logger::DEBUG
 end
 
-
+telegram_fetch = Telegram_Fetch.new(TDLIB_PATH, API_ID, API_HASH)
+telegram_fetch.select_chat(bot_name)
 
 options = {
   :Port => SystemPort,
   :BindAddress => SystemBindAddress,
   :DoNotReverseLookup => true
 }
-
 s = WEBrick::HTTPServer.new(options)
-
 
 s.mount_proc('/'){|request, response|
   errormsg = "request body error."
@@ -133,18 +126,6 @@ Signal.trap(:INT){
 }
 
 s.start
+telegram_fetch.close()
 
-
-
-# telegram = Simple_TD.new(TDLIB_PATH, API_ID, API_HASH)
-# telegram.select_chat(bot_name)
-# if telegram.ready_to_talk?
-#   message_list = telegram.get_recent_messages(number_of_message)
-#   puts message_list.size
-#   message_list.each{|m|
-#     p m
-#   }
-# end
-# puts "Closing..."
-# telegram.close()
 

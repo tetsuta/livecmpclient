@@ -14,3 +14,7 @@ SystemPort = 8100
 SystemBindAddress = "0.0.0.0"
 HTTPAccessControl = "*"
 
+
+# in second
+Dialogue_History_Cache_Time = 5
+
