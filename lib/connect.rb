@@ -19,5 +19,6 @@ p response
 puts "--"
 responed_data = JSON.parse(response.body)
 puts responed_data["text"]
+puts responed_data["html"]
 puts "--------------------"
 

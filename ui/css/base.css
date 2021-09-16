@@ -1,0 +1,192 @@
+
+/* This doesn't work */
+div.docid {
+    color:#0000ff;
+    font-size: large;
+}
+
+.tab-pane {
+    margin:10px
+    /* padding: 2px; */
+    /* background: #fff; */
+    /* border: 1px #ccc solid; */
+}
+
+div#container {
+    width:90%;
+    height:100%;
+    margin:0 auto;
+    background:#FFFFFF;
+    /* border-left:#CCCCCC 1px solid; */
+    /* border-right:#CCCCCC 1px solid; */
+    padding:10px 10px 10px 10px;
+}
+div#contents {
+    width:99%;
+    height:auto;
+    margin:0 auto;
+    /* padding:10px 0 20px 0; */
+}
+
+
+div#result {
+	margin:0 auto;
+	/* width: 80%; */
+	/* background:#FEFEEE; */
+	/* border-left:#CCCCCC 1px solid; */
+	/* border-right:#CCCCCC 1px solid; */
+	/* padding:10px 10px 20px 10px; */
+}
+
+div#parsed {
+	margin:0 auto;
+	/* width: 80%; */
+	/* text-align:left; */
+	/* background:#FEFEEE; */
+	/* border-left:#CCCCCC 1px solid; */
+	/* border-right:#CCCCCC 1px solid; */
+	/* padding:10px 10px 20px 10px; */
+}
+
+
+.edNormal {
+    float:left;
+}
+
+.edReplace {
+    float:left;
+    font-weight:bold;
+    color:#ff0000;
+    background-color:#e0ffff;
+}
+
+.edInsert {
+    float:left;
+    font-weight:bold;
+    color:#ff0000;
+    background-color:#f5f5f5;
+}
+
+span.wrong{
+    color:#ff0000;
+    float: none;
+}
+
+div.correctCandidate{
+    color:#990000;
+    cursor: pointer;
+}
+
+span.hit{
+    color:#0000ff;
+    float: none;
+}
+
+span.replacedtext{
+    color:#0000ff;
+    float: none;
+}
+
+.blockonekekka {
+	/* width:800px; */
+	margin:0px auto 20px auto;
+	padding:10px 10px 20px 10px;
+}
+
+h2.titleS {
+    /* width:70%; */
+    text-align:left;
+    margin:1px auto 2px auto;
+    padding:0 0 0 10px;
+    background-color:#facd89;
+}
+
+
+div.sentence {
+    margin:10px;
+    padding: 2px;
+    background: #fff;
+    border: 1px #ccc solid;
+}
+
+div.vinfo {
+    padding: 2px;
+    background: #fff;
+    border: 1px #ccc solid;
+}
+
+div.sem {
+    padding: 2px;
+    background: #fff;
+    border: 1px #ccc solid;
+}
+
+.naiyoukekka {
+	font-size:1.0em;
+	margin:0;
+	padding:0;
+	padding-left:15px;
+	text-align:left;
+}
+
+/* popup */
+div#modal-content{
+    width:80%;
+    margin:0;
+    padding:10px 20px;
+    border:2px solid #aaa;
+    background:#fff;
+    position:fixed;
+    display:none;
+    z-index:2;
+}
+ 
+div#modal-overlay{
+    z-index:1;
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:120%;
+    background-color:rgba(0,0,0,0.60);
+}
+
+div#oneshotbase{
+    padding: 5px;
+}
+
+div#oneshotinfo{
+    padding: 20px;
+    background: #fff;
+}
+
+div#trainbase{
+    padding: 5px;
+}
+
+div#traininfo{
+    padding: 20px;
+    background: #fff;
+}
+
+.infotable{
+    margin-top: 0px;
+    padding: 20px;
+    background: #fff;
+}
+
+.faqitem{
+    border:none;
+}
+
+span.candidateSlotValue{
+    color:#ff0000; 
+}
+
+span.systemResponse{
+    color:#000000;
+}
+
+
+

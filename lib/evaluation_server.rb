@@ -74,6 +74,7 @@ s.mount_proc('/'){|request, response|
   begin
     data = Hash::new
     data["text"] = ""
+    data["html"] = ""
 
     if (request.request_method != "POST")
       errormsg = "HTTP method error."
@@ -94,6 +95,7 @@ s.mount_proc('/'){|request, response|
     $logger.info("connection: :#{request.peeraddr.to_s}")
     dialogue_history = telegram_fetch.load_history()
     data["text"] << dialogue_history.to_s
+    data["html"] << dialogue_history.to_html
     response.body = JSON.generate(data)
 
   rescue Exception => e

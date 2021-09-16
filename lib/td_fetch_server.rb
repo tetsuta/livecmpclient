@@ -61,6 +61,18 @@ class Dialogue_History
     return buffer
   end
 
+
+  def to_html
+    buffer = ""
+    buffer << "<table class=\"table table-striped table-bordered\">\n"
+    self.each_message{|message|
+      buffer << message.to_html
+      buffer << "\n"
+    }
+    buffer << "</table>\n"
+    return buffer
+  end
+
 end
 
 # ==================================================
@@ -102,6 +114,22 @@ class Dialogue_Message
 
     buffer << "#{sender_flag}: #{text}"
     
+    return buffer
+  end
+
+
+  def to_html
+    buffer = ""
+    buffer << "<tr>"
+    if @sender_id == @my_user_id
+      sender_flag = "U"
+    else
+      sender_flag = "S"
+    end
+
+    buffer << "<td>#{sender_flag}</td>"
+    buffer << "<td>#{text}</td>"
+    buffer << "</tr>"
     return buffer
   end
 
