@@ -201,7 +201,9 @@ class Telegram_Fetch
 
 
   def close()
+    STDERR.puts("Closing...")
     @telegram.close()
+    STDERR.puts("Done")
   end
 end
 

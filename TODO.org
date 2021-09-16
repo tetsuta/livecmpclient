@@ -1,5 +1,5 @@
 * DONE build CL-base client
 * DONE download dialogue history,
-* put dialog history on a web page
+* DONE put dialog history on a web page
 * evaluation interface
 * get notice system utterane from Telegram to trigger fetching

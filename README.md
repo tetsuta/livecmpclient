@@ -28,6 +28,8 @@ A web server that send updated utterances to web clients.
 ./evaluation_server.rb -b situationtrack202001_bot
 
 
+# connection
+http://localhost/livecmp/index.html
 
 
 # reference

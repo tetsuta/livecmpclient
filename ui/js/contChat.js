@@ -1,12 +1,21 @@
 var Eval = function() {
-    var result = "";
-    
-    function main() {
-	loadData();
+
+    function sleep(msec) {
+	return new Promise(function(resolve) {
+	    setTimeout(function() {resolve()}, msec);
+	})
+    }
+
+    async function main() {
+	while (true) {
+	    loadData();
+	    await sleep(5100);
+	    var msec = new Date()
+	    $('#note').text(msec);
+	}
     }
 
     function loadData() {
-	var result = "";
         $.ajax({
             type: 'POST',
             url: new Config().getUrl() + '/',
@@ -15,10 +24,9 @@ var Eval = function() {
                 input: "inputText",
                 sessionid: ""}),
         }).done(function(data) {
-	    result += data.html;
-	    $('#result').html(result);
+	    $('#result').html(data.html);
         });
-    }
+    };
 
     return {
 	main: main
