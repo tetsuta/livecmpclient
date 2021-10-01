@@ -64,10 +64,17 @@ class Dialogue_History
 
   def to_html
     buffer = ""
+    index = 1
     buffer << "<table class=\"table table-striped table-bordered\">\n"
+
+    buffer << "<tr><th>発話者</th><th>評価ID</th><th>発話</th></tr>"
     self.each_message{|message|
-      buffer << message.to_html
+      buffer << message.to_html(index)
       buffer << "\n"
+
+      if message.is_system?
+        index += 1
+      end
     }
     buffer << "</table>\n"
     return buffer
@@ -118,16 +125,28 @@ class Dialogue_Message
   end
 
 
-  def to_html
+  def is_system?
+    if @sender_id == @my_user_id
+      return false
+    else
+      return true
+    end
+  end
+
+
+  def to_html(index)
     buffer = ""
     buffer << "<tr>"
-    if @sender_id == @my_user_id
-      sender_flag = "U"
-    else
+    if self.is_system?
       sender_flag = "S"
+      eval_id = index.to_s
+    else
+      sender_flag = "U"
+      eval_id = ""
     end
 
     buffer << "<td>#{sender_flag}</td>"
+    buffer << "<td>#{eval_id}</td>"
     buffer << "<td>#{text}</td>"
     buffer << "</tr>"
     return buffer
