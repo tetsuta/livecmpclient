@@ -29,7 +29,7 @@ A web server that send updated utterances to web clients.
 
 
 # connection
-http://localhost/livecmp/index.html
+http://localhost/livecmp/polling.html
 
 
 # reference
