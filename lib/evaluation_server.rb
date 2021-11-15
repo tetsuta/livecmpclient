@@ -45,6 +45,21 @@ if bot_name == nil
 end
 
 # --------------------------------------------------
+def store_result(bot_name, userInput)
+  data = {
+    bot: bot_name,
+    id: userInput["evalId"],
+    dialogueEval: userInput["dialogueEvalResult"],
+    utteranceEval: userInput["utteranceEvalResult"],
+    timestamp: Time.now()
+  }
+  File.open("output/#{bot_name}","a+"){|wfp|
+    wfp.puts JSON.generate(data)
+  }
+end
+
+
+# --------------------------------------------------
 $logger = Logger.new(LogFile, LogAge, LogSize*1024*1024)
 case LogLevel
 when :fatal then
@@ -100,6 +115,7 @@ s.mount_proc('/'){|request, response|
       data["html"] << dialogue_history.to_html
       response.body = JSON.generate(data)
     when "sendResult"
+      store_result(bot_name, userInput)
       puts userInput["evalId"]
       puts userInput["dialogueEvalResult"]
       puts userInput["utteranceEvalResult"]
