@@ -100,8 +100,12 @@ s.mount_proc('/'){|request, response|
       data["html"] << dialogue_history.to_html
       response.body = JSON.generate(data)
     when "sendResult"
-      puts userInput["result"]
+      puts userInput["evalId"]
+      puts userInput["dialogueEvalResult"]
+      puts userInput["utteranceEvalResult"]
       $logger.info("connection: :#{request.peeraddr.to_s}")
+      data["text"] = "done"
+      response.body = JSON.generate(data)
     end
 
   rescue Exception => e

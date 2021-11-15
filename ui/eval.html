@@ -20,15 +20,34 @@
     <div id="note"></div>
       
     <h1>ライブコンペ評価</h1>
-      
+
+    <hr>
+
     <form>
       <div id="inputId" class="form-group">
 	<div class="form-group row">
 	  <label for="evalId">評価者ID</label>
 	  <input class="form-control" id="evalId" placeholder="評価者ID">
 	</div>
-	<button id="sendEval" type="button" class="btn btn-primary">結果を送信</button>
-	<div id="sentStatus"></div>
+
+	<div class="form-group row">
+	  <label for="inlineFormCustomSelect">評価値</label>
+	  <select class="custom-select" name="poe" id="inlineFormCustomSelect">
+            <option selected>Choose...</option>
+            <option value="5">5</option>
+            <option value="4">4</option>
+            <option value="3">3</option>
+            <option value="2">2</option>
+            <option value="1">1</option>
+	  </select>
+
+	</div>
+
+	<div class="form-group row">
+	  <button id="sendEval" type="button" class="btn btn-primary">結果を送信</button>
+	  <span id="sentStatus"></span>
+	</div>
+
       </div>
     </form>
 

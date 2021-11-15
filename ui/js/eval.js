@@ -1,4 +1,4 @@
-var evalResult = {};
+var utteranceEvalResult = {};
 var Eval = function() {
 
     function main() {
@@ -9,30 +9,45 @@ var Eval = function() {
 
     function setupButtons() {
 	$('.systemUtt').on('click', function() {
+	    $('#sentStatus').html("");
 	    var selectedUttId = $(this).attr('eid');
-	    if (evalResult[selectedUttId] == null) {
+	    if (utteranceEvalResult[selectedUttId] == null) {
 		$(this).css('background-color', '#FF9999');
-		evalResult[selectedUttId] = 1;
+		utteranceEvalResult[selectedUttId] = 1;
 	    } else {
 		$(this).css('background-color', '#99FFFF');
-		delete evalResult[selectedUttId];
+		delete utteranceEvalResult[selectedUttId];
 	    }
 	});
 
+	$('#inlineFormCustomSelect').on('click', function() {
+	    $('#sentStatus').html("");
+	});
+
+	$('#evalId').keyup(function() {
+	    $('#sentStatus').html("");
+	});
+
 	$('#sendEval').on('click', function() {
-	    // alert(JSON.stringify(evalResult));
+	    var evalId = $('#evalId').val();
+	    var dialogEval = $('#inlineFormCustomSelect').val();
+
+	    $('#sentStatus').html("");
             $.ajax({
 		type: 'POST',
 		url: new Config().getUrl() + '/',
 		async: false,
 		data: JSON.stringify({
                     mode: "sendResult",
-		    result: evalResult,
+		    evalId: evalId,
+		    utteranceEvalResult: utteranceEvalResult,
+		    dialogueEvalResult: dialogEval,
                     sessionid: ""}),
             }).done(function(data) {
-		$('#sentStatus').text("done");
+		$('#sentStatus').html(data.text);
             });
 	});
+
     };
 
 
