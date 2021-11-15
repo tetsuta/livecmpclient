@@ -147,7 +147,11 @@ class Dialogue_Message
 
     buffer << "<td>#{sender_flag}</td>"
     buffer << "<td>#{eval_id}</td>"
-    buffer << "<td>#{text}</td>"
+    if self.is_system? && text !~ /_FINISHED_/ && text !~ /messages.html/
+      buffer << "<td class=\"systemUtt\" eid=\"#{eval_id}\">#{text}</td>"
+    else
+      buffer << "<td>#{text}</td>"
+    end
     buffer << "</tr>"
     return buffer
   end

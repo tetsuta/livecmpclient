@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <title>live competition evaluation</title>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta http-equiv="Content-Type" content="text/html">
+
+  <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+  <link rel="stylesheet" href="css/base.css" type="text/css" media="all" />
+  <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+  <script type="text/javascript" src="js/config.js"></script>
+  <script type="text/javascript" src="js/eval.js"></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <div id="note"></div>
+      
+    <h1>ライブコンペ評価</h1>
+      
+    <form>
+      <div id="inputId" class="form-group">
+	<div class="form-group row">
+	  <label for="evalId">評価者ID</label>
+	  <input class="form-control" id="evalId" placeholder="評価者ID">
+	</div>
+	<button id="sendEval" type="button" class="btn btn-primary">結果を送信</button>
+	<div id="sentStatus"></div>
+      </div>
+    </form>
+
+    <div id="result"></div>
+      
+  </div><!-- /container -->
+
+</body>
+</html>

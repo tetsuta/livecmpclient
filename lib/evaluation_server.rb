@@ -90,13 +90,19 @@ s.mount_proc('/'){|request, response|
     end
 
     userInput = JSON.parse(request.body)
-    input = userInput["input"]
+    mode = userInput["mode"]
 
-    $logger.info("connection: :#{request.peeraddr.to_s}")
-    dialogue_history = telegram_fetch.load_history()
-    data["text"] << dialogue_history.to_s
-    data["html"] << dialogue_history.to_html
-    response.body = JSON.generate(data)
+    case mode
+    when "getDialogue"
+      $logger.info("connection: :#{request.peeraddr.to_s}")
+      dialogue_history = telegram_fetch.load_history()
+      data["text"] << dialogue_history.to_s
+      data["html"] << dialogue_history.to_html
+      response.body = JSON.generate(data)
+    when "sendResult"
+      puts userInput["result"]
+      $logger.info("connection: :#{request.peeraddr.to_s}")
+    end
 
   rescue Exception => e
     $logger.fatal(e.message)
