@@ -112,7 +112,14 @@ s.mount_proc('/'){|request, response|
       $logger.info("connection: :#{request.peeraddr.to_s}")
       dialogue_history = telegram_fetch.load_history()
       data["text"] << dialogue_history.to_s
-      data["html"] << dialogue_history.to_html
+
+      ### table layout
+      # data["html"] << dialogue_history.to_html
+
+      ### chat layout
+      data["html"] << dialogue_history.to_html2
+
+
       response.body = JSON.generate(data)
     when "sendResult"
       store_result(bot_name, userInput)

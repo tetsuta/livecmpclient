@@ -80,6 +80,23 @@ class Dialogue_History
     return buffer
   end
 
+
+  def to_html2
+    buffer = ""
+    index = 1
+    buffer << "<hr>\n"
+    buffer << "<div style=\"background-color: #7897C5;\">"
+    self.each_message{|message|
+      buffer << message.to_html2(index)
+      buffer << "\n"
+      if message.is_system?
+        index += 1
+      end
+    }
+    buffer << "</div>"
+    return buffer
+  end
+
 end
 
 # ==================================================
@@ -153,6 +170,22 @@ class Dialogue_Message
       buffer << "<td>#{text}</td>"
     end
     buffer << "</tr>"
+    return buffer
+  end
+
+
+  def to_html2(index)
+    buffer = ""
+    if self.is_system?
+      eval_id = index.to_s
+      if text !~ /_FINISHED_/ && text !~ /messages.html/
+        buffer << "<p class=\"left_balloon systemUtt\" eid=\"#{eval_id}\">#{eval_id}: #{text}</p>"
+      else
+        buffer << "<p class=\"left_balloon\">#{eval_id}: #{text}</p>"
+      end
+    else
+      buffer << "<p class=\"right_balloon\">#{text}</p>"
+    end
     return buffer
   end
 

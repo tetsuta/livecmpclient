@@ -11,24 +11,28 @@ This repository provides 1) client function for chat and 2) evaluation function 
 
 example
 ````
-./test_client.rb -b situationtrack202001_bot
+./test_client.rb -b livecomptt_bot
 ````
 
 # dialogue extraction
 
 example
 ````
-./dialogue_extraction.rb -b situationtrack202001_bot -n 5
+./dialogue_extraction.rb -b livecomptt_bot -n 5
 ````
 
 
 # evaluation server
 A web server that send updated utterances to web clients.
+````
+./evaluation_server.rb -b livecomptt_bot
+````
 
-./evaluation_server.rb -b situationtrack202001_bot
-
+DSLC4bot
+IRSbot
 
 # connection
+http://localhost/livecmp/eval.html
 http://localhost/livecmp/polling.html
 
 
