@@ -23,6 +23,12 @@ div#inputId {
     /* background:#FEFEEE; */
 }
 
+div#selected_ids {
+    margin:10px 10px 10px 10px;
+    background-color: #FF9999;
+    padding: 10px;
+}
+
 td.systemUtt {
     background-color: #99FFFF;
 }

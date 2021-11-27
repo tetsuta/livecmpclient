@@ -22,6 +22,25 @@ example
 ````
 
 
+# evaluation page
+
+URL for form must be set in "data/form_iframe" in advance.
+
+example
+````
+RESET
+./generate_evalpage.rb -e -b IRSbot -t IRS1
+./generate_evalpage.rb -e -b livecompeBaseline2021situ_bot -t livecompeBaseline2021situ1
+
+upload
+./generate_evalpage.rb -b IRSbot -t IRS1
+./generate_evalpage.rb -b livecompeBaseline2021situ_bot -t livecompeBaseline2021situ1
+````
+
+http://www.kagonma.org/dialog/lc4/IRS1.html
+http://www.kagonma.org/dialog/lc4/livecompeBaseline2021situ1.html
+
+
 # evaluation server
 A web server that send updated utterances to web clients.
 ````

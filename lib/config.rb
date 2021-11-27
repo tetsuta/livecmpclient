@@ -16,10 +16,14 @@ HTTPAccessControl = "*"
 
 
 # in second
-# Dialogue_History_Cache_Time = 5
-Dialogue_History_Cache_Time = 600
+Dialogue_History_Cache_Time = 3
+# Dialogue_History_Cache_Time = 600
 
 # this is for development
 # to use stored file instead of fetching from server
-Dialogue_History_Stab_File = "./stab.db"
+#Dialogue_History_Stab_File = "./stab.db"
+Dialogue_History_Stab_File = nil
+
+# iframe file
+IFRAME_FILE = "data/form_iframe"
 

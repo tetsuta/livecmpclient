@@ -2,7 +2,7 @@ var utteranceEvalResult = {};
 var Eval = function() {
 
     function main() {
-	loadData();
+	// loadData();
 	setupButtons();
     }
 
@@ -17,6 +17,12 @@ var Eval = function() {
 	    } else {
 		$(this).css('background-color', '#99FFFF');
 		delete utteranceEvalResult[selectedUttId];
+	    }
+	    if (Object.keys(utteranceEvalResult).length > 0) {
+		var content = "選択された発話ID：" + Object.keys(utteranceEvalResult).join(",");
+		$('#selected_ids').html(content);
+	    } else {
+		$('#selected_ids').html("");
 	    }
 	});
 

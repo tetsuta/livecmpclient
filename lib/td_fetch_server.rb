@@ -196,7 +196,8 @@ end
 class Telegram_Fetch
   # if stab_file is specified, it use stab_file instead of fetching from server
   def initialize(tdllib_path, api_id, api_hash, cache_time, stab_file = nil)
-    @telegram = Simple_TD.new(tdllib_path, api_id, api_hash)
+    quiet = true
+    @telegram = Simple_TD.new(tdllib_path, api_id, api_hash, quiet)
     @number_of_message = 35
     @cache_time = cache_time
     @stab_file = stab_file
@@ -223,7 +224,7 @@ class Telegram_Fetch
       dialogue_history.load(@stab_content)
 
       if dialogue_history.message_list.size > 0
-        puts "file cache!!!"
+        STDERR.puts "file cache!!!"
         @dialogue_history = dialogue_history
         return @dialogue_history
       end
@@ -231,7 +232,7 @@ class Telegram_Fetch
 
     now = Time.now
     if @last_load_time == nil || (now - @last_load_time) > @cache_time
-      puts "td_fetch_server.rb: RELOAD!!!"
+      STDERR.puts "td_fetch_server.rb: RELOAD!!!"
       if @telegram.ready_to_talk?
         td_message_list = @telegram.get_recent_messages(@number_of_message)
         @last_load_time = Time.now()
@@ -241,12 +242,12 @@ class Telegram_Fetch
         return nil
       end
     else
-      puts "td_fetch_server.rb: Cache!!!"
+      STDERR.puts "td_fetch_server.rb: Cache!!!"
       # cache can work
     end
 
     if @stab_file != nil
-      puts "store file cache!!!"
+      STDERR.puts "store file cache!!!"
       File.open(@stab_file, "w"){|wfp|
         wfp.puts @dialogue_history.dump
       }
