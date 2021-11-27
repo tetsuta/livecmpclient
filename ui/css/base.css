@@ -23,7 +23,27 @@ div#inputId {
     /* background:#FEFEEE; */
 }
 
+div.indexpage {
+    font-size: 200%;
+}
+
+span#copybutton {
+  width: 40%;
+  background: #0776dd;
+  color: #fff;
+  margin:0px 0px 0px 10px;
+  text-align: center;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px -2px rgba(0,0,0,.4);
+  cursor: pointer;
+}
+
+input#selectedidval {
+    width: 80%;
+}
+
 div#selected_ids {
+    font-size: 150%;
     margin:10px 10px 10px 10px;
     background-color: #FF9999;
     padding: 10px;

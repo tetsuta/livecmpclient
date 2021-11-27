@@ -19,8 +19,16 @@ var Eval = function() {
 		delete utteranceEvalResult[selectedUttId];
 	    }
 	    if (Object.keys(utteranceEvalResult).length > 0) {
-		var content = "選択された発話ID：" + Object.keys(utteranceEvalResult).join(",");
+		var content = "選択された発話ID：<input type='text' id='selectedidval' value=" + Object.keys(utteranceEvalResult).join(",") + " /><span id=copybutton>コピー</span>";
 		$('#selected_ids').html(content);
+		$("#copybutton").css('background', '#0776dd')
+
+		$("#copybutton").on("click", function() {
+		    $("#selectedidval").select();
+		    document.execCommand('copy');
+		    $("#copybutton").css('background', 'gray')
+		});		
+
 	    } else {
 		$('#selected_ids').html("");
 	    }

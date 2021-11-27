@@ -71,14 +71,13 @@ html_header = <<HEADER
   <div class="container">
     <div id="note"></div>
       
-    <h1>ライブコンペ評価</h1>
+    <h1>ライブコンペ評価：#{target_name}</h1>
 
     <hr>
 HEADER
 
 html_footer = <<FOOTER
     <hr>
-    <div id="selected_ids"></div>
 
   </div><!-- /container -->
 
@@ -106,15 +105,20 @@ end
 
 telegram_fetch = Telegram_Fetch.new(TDLIB_PATH, API_ID, API_HASH, Dialogue_History_Cache_Time, Dialogue_History_Stab_File)
 
-html_fp = File.open("#{target_name}.html","w")
+html_fp = File.open("html/#{target_name}.html","w")
 html_fp.puts html_header
 
 unless empty
   telegram_fetch.select_chat(bot_name)
   dialogue_history = telegram_fetch.load_history()
   html_fp.puts dialogue_history.to_html
+
+  html_fp.puts "<hr>"
+  html_fp.puts "<div id=\"selected_ids\"></div>"
+
   html_fp.puts iframe_url[target_name]
 end
+
 
 html_fp.puts html_footer
 telegram_fetch.close()
@@ -128,6 +132,7 @@ ftp_fp.puts "bin"
 ftp_fp.puts "prompt"
 ftp_fp.puts "cd kagonma.stepserver.jp"
 ftp_fp.puts "cd public_html/dialog/lc4"
+ftp_fp.puts "lcd html"
 ftp_fp.puts "put #{target_name}.html"
 ftp_fp.puts "quit"
 ftp_fp.close

@@ -68,7 +68,15 @@ class Dialogue_History
     buffer << "<table class=\"table table-striped table-bordered\">\n"
 
     buffer << "<tr><th>発話者</th><th>評価ID</th><th>発話</th></tr>"
+
+    finished = false
     self.each_message{|message|
+      next if message.is_start?
+      next if finished
+      if message.text =~ /_FINISHED_/
+        finished = true
+      end
+
       buffer << message.to_html(index)
       buffer << "\n"
 
